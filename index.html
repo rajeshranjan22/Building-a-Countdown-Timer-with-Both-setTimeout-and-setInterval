@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+</head>
+
+<body>
+    <h1>Open the console and press "s" to stop the countdown early.</h1>
+
+</body>
+
+</html>
+
+<script>
+    let seconds = parseInt(prompt("Enter countdown time in seconds:"), 10);
+
+    if (isNaN(seconds) || seconds < 0) {
+        console.log("Invalid input. Please enter a positive number.");
+    } else {
+        console.log(`Starting countdown from ${seconds} seconds...`);
+
+        const intervalId = setInterval(() => {
+            console.log(`Time left: ${seconds} seconds`);
+            seconds--;
+
+            if (seconds < 0) {
+                clearInterval(intervalId);
+                console.log("Countdown Complete!");
+            }
+        }, 1000);
+
+        const stopHandler = (event) => {
+            if (event.key.toLowerCase() === 's') {
+                clearInterval(intervalId);
+                console.log("Countdown stopped by user.");
+                window.removeEventListener('keydown', stopHandler);
+            }
+        };
+
+        setTimeout(() => {
+            window.addEventListener('keydown', stopHandler);
+        }, 0);
+    }
+</script>
